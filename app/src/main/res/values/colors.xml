@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="primary_blue">#0096C7</color>
+    <color name="light_blue">#00B4D8</color>
+    <color name="aqua_background">#E0F7FA</color>
+    <color name="deep_navy">#023E8A</color>
+
+    <color name="green_healthy">#2ECC71</color>
+    <color name="amber_warning">#F4D03F</color>
+    <color name="red_danger">#E74C3C</color>
+    <color name="soft_gray_ai">#ECEFF1</color>
+
+    <color name="sky_gradient_start">#48CAE4</color>
+    <color name="sky_gradient_end">#0096C7</color>
+    <color name="dark_overlay">#99001F3F</color>
+    <color name="highlight_cyan">#90E0EF</color>
+
+    <color name="dark_background">#0D1B2A</color>
+    <color name="primary_dark_blue">#1B263B</color>
+    <color name="accent_light_blue_dark">#00B4D8</color>
+    <color name="text_light">#F8F9FA</color>
+</resources>

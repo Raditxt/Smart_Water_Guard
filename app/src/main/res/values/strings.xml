@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App Info -->
+    <string name="app_name">SmartWaterGuard</string>
+    <string name="app_description">Sistem Pemantau Kualitas Air Cerdas</string>
+    <string name="app_description_long">
+        SmartWaterGuard adalah sistem pemantau kualitas air cerdas yang dirancang untuk memberikan data real-time,
+        analisis berbasis kecerdasan buatan, dan rekomendasi tindakan preventif. Kami berdedikasi untuk membantu Anda
+        memastikan air yang digunakan dan dikonsumsi aman, sehat, dan optimal. Fitur utama meliputi monitoring pH,
+        TDS, Turbidity, dan Suhu, serta analisis risiko komprehensif.
+    </string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_title_1">Jaga Kualitas Air Anda untuk Kesehatan</string>
+    <string name="onboarding_desc_1">
+        Air bersih adalah kunci hidup sehat. Pelajari mengapa memantau kualitas air itu penting — tidak hanya untuk diminum,
+        tapi juga untuk kegiatan sehari-hari.
+    </string>
+
+    <string name="onboarding_title_2">Bagaimana SmartWaterGuard Bekerja</string>
+    <string name="onboarding_desc_2">
+        Monitor kualitas air secara real-time, analisis hasilnya dengan kecerdasan buatan, dan dapatkan rekomendasi
+        untuk menjaga air tetap aman dan sehat.
+    </string>
+    <string name="onboarding_image_desc_sensor">Ilustrasi Sensor SmartWaterGuard</string>
+
+    <string name="onboarding_title_3">Mulai Lindungi Air Anda Sekarang!</string>
+    <string name="onboarding_desc_3">
+        Gabung bersama kami untuk memantau kualitas air dengan mudah dan cerdas. Daftar atau masuk untuk mulai sekarang!
+    </string>
+    <string name="onboarding_image_desc_join">Ajak Bergabung</string>
+
+    <!-- Buttons -->
+    <string name="button_mulai_sekarang">Mulai Sekarang</string>
+    <string name="button_lanjut">Lanjut</string>
+    <string name="button_login">Login</string>
+    <string name="button_register">Daftar</string>
+
+    <!-- Login -->
+    <string name="login_title">Selamat Datang Kembali</string>
+    <string name="login_hint_email">Email</string>
+    <string name="login_hint_password">Password</string>
+    <string name="text_no_account">Belum punya akun? Daftar</string>
+    <string name="text_forgot_password">Lupa Password?</string>
+
+    <!-- Register -->
+    <string name="register_title">Buat Akun Baru</string>
+    <string name="register_hint_name">Nama Lengkap</string>
+    <string name="register_hint_confirm_password">Konfirmasi Password</string>
+    <string name="text_have_account">Sudah punya akun? Login</string>
+
+    <!-- Navigation -->
+    <string name="nav_monitoring">Monitoring</string>
+    <string name="nav_ai_analysis">Analisis AI</string>
+    <string name="nav_recommendations">Rekomendasi</string>
+    <string name="nav_info">Info &amp; Akun</string>
+    <string name="nav_profile">Profil &amp; Akun</string>
+
+    <!-- Credits -->
+    <string name="creator_name">Dibuat oleh: SmartGuard Team (Kelompok 4)</string>
+    <string name="creator_name_detail">
+        Kelompok 4 (SmartGuard Team)\n
+        42523011 - Raditya Mulya Akbar\n
+        42523013 - Chairil Alfi Syahri\n
+        42523006 - A. Zaedina Aulia Putri
+    </string>
+
+    <!-- Fragments & Misc -->
+    <string name="hello_blank_fragment">Fragment Kosong</string>
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+    <string name="user_greeting">Halo, %s!</string>
+
+    <!-- Placeholder / Dummy Text -->
+    <string name="lorem_ipsum">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris volutpat, dolor id interdum ullamcorper,
+        risus dolor egestas lectus, sit amet mattis purus dui nec risus. Maecenas non sodales nisi, vel dictum dolor…
+    </string>
+
+</resources>

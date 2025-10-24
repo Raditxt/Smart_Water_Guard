@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_monitoring"
+        android:icon="@drawable/ic_water_drop"
+        android:title="@string/nav_monitoring" />
+
+    <item
+        android:id="@+id/nav_ai_analysis"
+        android:icon="@drawable/ic_brain"
+        android:title="@string/nav_ai_analysis" />
+
+    <item
+        android:id="@+id/nav_recommendations"
+        android:icon="@drawable/ic_lightbulb"
+        android:title="@string/nav_recommendations" />
+
+    <item
+        android:id="@+id/nav_profile"
+        android:icon="@drawable/ic_person"
+        android:title="@string/nav_profile" />
+</menu>
