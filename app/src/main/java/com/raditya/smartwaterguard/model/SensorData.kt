@@ -1,8 +1,8 @@
 // File: SensorData.kt
-package com.raditya.smartwaterguard
+package com.raditya.smartwaterguard.model
 
 data class SensorData(
-    val name: String,
+    val type: SensorType,
     val value: Double,
     val unit: String,
     val iconResId: Int,
