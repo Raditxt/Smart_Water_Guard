@@ -1,34 +1,23 @@
 package com.raditya.smartwaterguard
 
-import android.animation.Animator
-import android.animation.AnimatorListenerAdapter
-import android.animation.ObjectAnimator
-import android.animation.ArgbEvaluator
-import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.content.edit
 import androidx.fragment.app.Fragment
-import com.raditya.smartwaterguard.databinding.ActivityOnboardingBinding
 import androidx.viewpager2.widget.ViewPager2
 import androidx.core.view.WindowCompat
 import android.view.View
-import android.view.animation.LinearInterpolator
-import android.graphics.Color
+import android.animation.ArgbEvaluator
+import com.raditya.smartwaterguard.databinding.ActivityOnboardingBinding
 
 class OnboardingActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityOnboardingBinding
     private val PREFS_NAME = "user_session"
 
-    // =============================================
-    // ANIMASI & AUTO SCROLL
-    // =============================================
-    private val FILL_DURATION: Long = 3000
-    private var autoScrollActive = true
-    private var currentAnimator: ObjectAnimator? = null
-    private var firstAnimationStarted = false
     private lateinit var indicatorViews: List<View>
 
     // =============================================
@@ -45,6 +34,7 @@ class OnboardingActivity : AppCompatActivity() {
         R.color.deep_navy,
         R.color.primary_dark_blue
     )
+
     private val pageBackgroundColors = listOf(
         R.color.aqua_background,
         R.color.soft_gray_ai,
@@ -59,6 +49,7 @@ class OnboardingActivity : AppCompatActivity() {
         binding = ActivityOnboardingBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // Menampilkan konten di belakang status bar
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
         indicatorViews = listOf(
@@ -77,63 +68,12 @@ class OnboardingActivity : AppCompatActivity() {
         setupNavigationAndColor()
     }
 
-    override fun onPause() {
-        super.onPause()
-        currentAnimator?.cancel()
-    }
-
-    override fun onStop() {
-        super.onStop()
-        currentAnimator?.cancel()
-    }
-
     // =============================================
-    // ANIMASI SEGMENT
+    // INDIKATOR STATUS
     // =============================================
-    private fun startSegmentAnimation(position: Int) {
-        currentAnimator?.cancel()
-        if (!autoScrollActive || position >= indicatorViews.size) return
-
-        val targetView = indicatorViews[position]
-        targetView.scaleX = 0f
-        targetView.pivotX = 0f
-
-        currentAnimator = ObjectAnimator.ofFloat(targetView, "scaleX", 0f, 1f).apply {
-            duration = FILL_DURATION
-            interpolator = LinearInterpolator()
-
-            addListener(object : AnimatorListenerAdapter() {
-                override fun onAnimationEnd(animation: Animator) {
-                    super.onAnimationEnd(animation)
-                    animation.removeAllListeners()
-
-                    if (!autoScrollActive) return
-
-                    val nextItem = binding.viewPager.currentItem + 1
-                    val lastIndex = fragmentList.size - 1
-
-                    targetView.scaleX = 1f
-
-                    // ✅ Reset flag supaya animasi halaman berikutnya bisa jalan
-                    firstAnimationStarted = false
-
-                    if (nextItem <= lastIndex) {
-                        binding.viewPager.currentItem = nextItem
-                    } else {
-                        saveFirstLaunchStatus()
-                        startActivity(Intent(this@OnboardingActivity, LoginActivity::class.java))
-                        finish()
-                    }
-                }
-
-            })
-            start()
-        }
-    }
-
     private fun updateSegmentStatus(currentPosition: Int) {
         indicatorViews.forEachIndexed { index, view ->
-            view.scaleX = if (index < currentPosition) 1f else 0f
+            view.scaleX = if (index <= currentPosition) 1f else 0f
         }
     }
 
@@ -149,7 +89,11 @@ class OnboardingActivity : AppCompatActivity() {
 
         binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
 
-            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+            override fun onPageScrolled(
+                position: Int,
+                positionOffset: Float,
+                positionOffsetPixels: Int
+            ) {
                 super.onPageScrolled(position, positionOffset, positionOffsetPixels)
                 if (position < pageBackgroundColors.size - 1) {
                     val bgStart = ContextCompat.getColor(this@OnboardingActivity, pageBackgroundColors[position])
@@ -168,14 +112,6 @@ class OnboardingActivity : AppCompatActivity() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                 updateSegmentStatus(position)
-
-                if (autoScrollActive) {
-                    if (!firstAnimationStarted || currentAnimator == null) {
-                        firstAnimationStarted = true
-                        startSegmentAnimation(position)
-                    }
-                }
-
                 binding.btnNext.text = if (position == lastIndex) {
                     getString(R.string.button_mulai_sekarang)
                 } else {
@@ -185,37 +121,17 @@ class OnboardingActivity : AppCompatActivity() {
 
             override fun onPageScrollStateChanged(state: Int) {
                 super.onPageScrollStateChanged(state)
-                when (state) {
-                    ViewPager2.SCROLL_STATE_DRAGGING -> {
-                        currentAnimator?.cancel()
-                        autoScrollActive = false
-                        firstAnimationStarted = false
-
-                        if (binding.viewPager.currentItem < indicatorViews.size) {
-                            indicatorViews[binding.viewPager.currentItem].scaleX = 1f
-                        }
-                    }
-                    ViewPager2.SCROLL_STATE_IDLE -> {
-                        val currentItem = binding.viewPager.currentItem
-                        setSystemBarsAndBackground(currentItem)
-                    }
-
-                    ViewPager2.SCROLL_STATE_SETTLING -> {
-                        TODO()
-                    }
+                if (state == ViewPager2.SCROLL_STATE_IDLE) {
+                    val currentItem = binding.viewPager.currentItem
+                    setSystemBarsAndBackground(currentItem)
                 }
             }
         })
 
         binding.btnNext.setOnClickListener {
-            currentAnimator?.cancel()
-            autoScrollActive = false
-
             val currentItem = binding.viewPager.currentItem
             if (currentItem < lastIndex) {
-                if (currentItem < indicatorViews.size) {
-                    indicatorViews[currentItem].scaleX = 1f
-                }
+                indicatorViews[currentItem].scaleX = 1f
                 binding.viewPager.currentItem = currentItem + 1
             } else {
                 saveFirstLaunchStatus()
@@ -223,11 +139,11 @@ class OnboardingActivity : AppCompatActivity() {
                 finish()
             }
         }
-
-        // ⚠️ FIX: Jangan panggil startSegmentAnimation(0) di sini lagi!
     }
 
     private fun setSystemBarsAndBackground(position: Int) {
+        if (position >= pageStatusBarColors.size) return
+
         val statusBarColor = ContextCompat.getColor(this, pageStatusBarColors[position])
         val backgroundColor = ContextCompat.getColor(this, pageBackgroundColors[position])
 
@@ -237,7 +153,7 @@ class OnboardingActivity : AppCompatActivity() {
 
         val controller = WindowCompat.getInsetsController(window, window.decorView)
         val isLight = Color.luminance(statusBarColor) > 0.5
-        controller.isAppearanceLightStatusBars = !isLight
+        controller.isAppearanceLightStatusBars = isLight
     }
 
     private fun saveFirstLaunchStatus() {
